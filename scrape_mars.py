@@ -21,13 +21,13 @@ def scrape():
     newselement = red_planet_soup.select_one("div.list_text")
 
     newstitle  = newselement.find("div", class_= "content_title").get_text()
-    return_dict["newstitle"] = newstitle
+    return_dict["key_newstitle"] = newstitle
 
     newspara = newselement.find("div", class_= "article_teaser_body").get_text()
-    return_dict["newspara"] = newspara
+    return_dict["key_newspara"] = newspara
 
     newsdate = newselement.find("div", class_= "list_date").get_text()
-    return_dict["newsdate"] = newsdate
+    return_dict["key_newsdate"] = newsdate
 
     url = 'https://spaceimages-mars.com/'
     browser.visit(url)
@@ -38,7 +38,7 @@ def scrape():
     image_element = space_image_soup.select_one("img.headerimage.fade-in")
    
     featured_image_url = url + image_element["src"]
-    return_dict["featured_image_url"] = featured_image_url
+    return_dict["key_featured_image_url"] = featured_image_url
     
     url = 'https://galaxyfacts-mars.com/'
     tables = pd.read_html(url)
@@ -48,7 +48,7 @@ def scrape():
     df_Mars_facts = df_Mars_facts.drop([0])
     
     html_Mars_facts = df_Mars_facts.to_html()
-    return_dict["html_Mars_facts"] = html_Mars_facts
+    return_dict["key_html_Mars_facts"] = html_Mars_facts
 
     url = 'https://marshemispheres.com/'
     browser.visit(url)
@@ -63,14 +63,14 @@ def scrape():
         browser.find_by_css("a.product-item img")[index].click()
         title_text = browser.find_by_css("h2.title").text
         mars_image = browser.links.find_by_text("Sample").first["href"]
-        hemispheres["title"] = title_text
-        hemispheres["url"] = mars_image
+        hemispheres["key_title"] = title_text
+        hemispheres["key_url"] = mars_image
         mars_hemispheres.append(hemispheres)
         browser.back()
 
     return_dict["mars_hemispheres"]  = mars_hemispheres              
     browser.quit()
 
-    return return_dict 
+    return (return_dict)
 
 
