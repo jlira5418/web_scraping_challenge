@@ -47,7 +47,7 @@ def scrape():
     df_Mars_facts.columns =df_Mars_facts.iloc[0]
     df_Mars_facts = df_Mars_facts.drop([0])
     
-    html_Mars_facts = df_Mars_facts.to_html()
+    html_Mars_facts = df_Mars_facts.to_html(classes="table")
     return_dict["key_html_Mars_facts"] = html_Mars_facts
 
     url = 'https://marshemispheres.com/'
